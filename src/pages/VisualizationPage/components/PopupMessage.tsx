@@ -1,3 +1,4 @@
+// 사용자가 호실을 클릭했을때 나오는 세부 Class 색상레이블 팝업메시지
 import {
   Button,
   Dialog,
@@ -16,6 +17,7 @@ import ClassFrame from './ClassFrame';
 
 interface PopupMessageProps {
   open: boolean;
+  // popUpOpenClick은 popUpMessage에서 필요 없음 추후 삭제
   popUpOpenClick: () => void;
   popUpCloseClick: () => void;
   setPopUpFloorState: SetterOrUpdater<string>;

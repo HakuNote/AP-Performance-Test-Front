@@ -4,10 +4,10 @@ import { Typography, Box } from '@mui/material';
 import { useSetRecoilState } from 'recoil';
 import { popUpFloorState, popUpRoomState } from '../../../../module/Atom';
 
-import Container from './Container';
+import Container from './FxContainer';
 import SquareUnit from './SquareUnit';
 import SquareBackground from './SquareBackground';
-import DetermineRoomColor from '../DetermineRoomColor';
+import DetermineRoomColor from '../../func/DetermineRoomColor';
 
 import F5LayoutData from '../../../../data/VisualLayoutData/F5LayoutData.json';
 
@@ -31,7 +31,7 @@ const F5Layout: React.FC = () => {
     if (floor && room) {
       setPopUpFloorState(floor);
       setPopUpRoomState(room);
-      popUpOpenClick(); // 팝업 다이얼로그 열기
+      popUpOpenClick();
     }
   };
 
@@ -42,15 +42,13 @@ const F5Layout: React.FC = () => {
       <Container>
         <SquareBackground
           // Background Color
-          width={F5LayoutData.Container.SquareBackground.width}
-          height={F5LayoutData.Container.SquareBackground.height}
-          gridColumn={F5LayoutData.Container.SquareBackground.gridColumn}
-          gridRow={F5LayoutData.Container.SquareBackground.gridRow}
-          backgroundColor={
-            F5LayoutData.Container.SquareBackground.backgroundColor
-          }
+          width={F5LayoutData.Layout.SquareBackground.width}
+          height={F5LayoutData.Layout.SquareBackground.height}
+          gridColumn={F5LayoutData.Layout.SquareBackground.gridColumn}
+          gridRow={F5LayoutData.Layout.SquareBackground.gridRow}
+          backgroundColor={F5LayoutData.Layout.SquareBackground.backgroundColor}
         />
-        {F5LayoutData.Container.SquareUnit.map(unit => {
+        {F5LayoutData.Layout.SquareUnit.map(unit => {
           const roomNumber = unit.id;
 
           return (

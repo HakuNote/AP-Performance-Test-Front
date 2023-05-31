@@ -4,10 +4,10 @@ import { Typography, Box } from '@mui/material';
 import { useSetRecoilState } from 'recoil';
 import { popUpFloorState, popUpRoomState } from '../../../../module/Atom';
 
-import Container from './Container';
+import FxContainer from './FxContainer';
 import SquareUnit from './SquareUnit';
 import SquareBackground from './SquareBackground';
-import DetermineRoomColor from '../DetermineRoomColor';
+import DetermineRoomColor from '../../func/DetermineRoomColor';
 
 import F4LayoutData from '../../../../data/VisualLayoutData/F4LayoutData.json';
 
@@ -39,20 +39,17 @@ const F4Layout: React.FC = () => {
 
   return (
     <div>
-      <Container>
+      <FxContainer>
         <SquareBackground
           // Background Color
-          width={F4LayoutData.Container.SquareBackground.width}
-          height={F4LayoutData.Container.SquareBackground.height}
-          gridColumn={F4LayoutData.Container.SquareBackground.gridColumn}
-          gridRow={F4LayoutData.Container.SquareBackground.gridRow}
-          backgroundColor={
-            F4LayoutData.Container.SquareBackground.backgroundColor
-          }
+          width={F4LayoutData.Layout.SquareBackground.width}
+          height={F4LayoutData.Layout.SquareBackground.height}
+          gridColumn={F4LayoutData.Layout.SquareBackground.gridColumn}
+          gridRow={F4LayoutData.Layout.SquareBackground.gridRow}
+          backgroundColor={F4LayoutData.Layout.SquareBackground.backgroundColor}
         />
-        {F4LayoutData.Container.SquareUnit.map(unit => {
+        {F4LayoutData.Layout.SquareUnit.map(unit => {
           const roomNumber = unit.id;
-
           return (
             <SquareUnit
               key={unit.id}
@@ -71,7 +68,7 @@ const F4Layout: React.FC = () => {
             </SquareUnit>
           );
         })}
-      </Container>
+      </FxContainer>
       <PopupMessage
         open={open}
         popUpOpenClick={popUpOpenClick}

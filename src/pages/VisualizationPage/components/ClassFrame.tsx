@@ -4,11 +4,11 @@ import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 import { popUpFloorState, popUpRoomState } from '../../../module/Atom';
 
+import DetermineClassColor from '../func/DetermineClassColor';
+
 import F4ClassFrame from '../../../data/ClassFrameData/F4ClassFrame.json';
 import F5ClassFrame from '../../../data/ClassFrameData/F5ClassFrame.json';
 import F6ClassFrame from '../../../data/ClassFrameData/F6ClassFrame.json';
-
-import DetermineClassColor from './DetermineClassColor';
 
 const Container = styled(Box)({
   width: 300,

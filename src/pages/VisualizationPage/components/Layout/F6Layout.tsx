@@ -4,10 +4,10 @@ import { Typography, Box } from '@mui/material';
 import { useSetRecoilState } from 'recoil';
 import { popUpFloorState, popUpRoomState } from '../../../../module/Atom';
 
-import Container from './Container';
+import Container from './FxContainer';
 import SquareUnit from './SquareUnit';
 import SquareBackground from './SquareBackground';
-import DetermineRoomColor from '../DetermineRoomColor';
+import DetermineRoomColor from '../../func/DetermineRoomColor';
 
 import F6LayoutData from '../../../../data/VisualLayoutData/F6LayoutData.json';
 
@@ -42,15 +42,13 @@ const F6Layout: React.FC = () => {
       <Container>
         <SquareBackground
           // Background Color
-          width={F6LayoutData.Container.SquareBackground.width}
-          height={F6LayoutData.Container.SquareBackground.height}
-          gridColumn={F6LayoutData.Container.SquareBackground.gridColumn}
-          gridRow={F6LayoutData.Container.SquareBackground.gridRow}
-          backgroundColor={
-            F6LayoutData.Container.SquareBackground.backgroundColor
-          }
+          width={F6LayoutData.Layout.SquareBackground.width}
+          height={F6LayoutData.Layout.SquareBackground.height}
+          gridColumn={F6LayoutData.Layout.SquareBackground.gridColumn}
+          gridRow={F6LayoutData.Layout.SquareBackground.gridRow}
+          backgroundColor={F6LayoutData.Layout.SquareBackground.backgroundColor}
         />
-        {F6LayoutData.Container.SquareUnit.map(unit => {
+        {F6LayoutData.Layout.SquareUnit.map(unit => {
           const roomNumber = unit.id;
 
           return (

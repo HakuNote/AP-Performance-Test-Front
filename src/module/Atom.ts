@@ -1,73 +1,76 @@
 import { atom } from 'recoil';
 import { SpeedTestData } from '../librespeed/SpeedtestManager';
-import {
-  MeasurementData,
-  SpeedTestDataFromServer,
-} from '../pages/VisualizationPage/components/GetMeasuredData';
+
+export interface User {
+  floorNumber: number;
+  roomNumber: number;
+  locationClass: number;
+  userCookie: string;
+}
+
+export interface SpeedTestDataFromServer {
+  dlStatus: number;
+  ulStatus: number;
+  pingStatus: number;
+  jitterStatus: number;
+  clientIp: string;
+}
+
+export interface MeasurementData {
+  user: User;
+  speedTest: SpeedTestDataFromServer;
+  createdAt: string;
+}
 
 /* Atom */
+// 사용자 층수
 export const floorState = atom({
   key: 'floorState',
   default: '',
 });
 
+// 사용자 호수
 export const roomState = atom({
   key: 'roomState',
   default: '',
 });
 
+// 사용자 위치 클래스
 export const locationClassState = atom({
   key: 'locationClassState',
   default: '',
 });
 
+// Start 버튼 토글 현황
 export const startToggleState = atom({
   key: 'startToggleState',
   default: true,
 });
 
+// cookie 활성화
 export const cookieState = atom({
   key: 'cookieState',
   default: '',
 });
 
+// 시각화 PopUp 메시지에서 뜨는 층수
 export const popUpFloorState = atom({
   key: 'popUpFloorState',
   default: '',
 });
 
+// 시각화 PopUp 메시지에서 뜨는 호수
 export const popUpRoomState = atom({
   key: 'popUpRoomState',
   default: '',
 });
-
-// interface MeasuredDate {
-//   _id: string;
-//   avgPing: number;
-//   jitter: number;
-//   upstreamSpeed: number;
-//   downstreamSpeed: number;
-//   floorNumber: number;
-//   roomNumber: number;
-//   locationClass: number;
-//   userCookie: string;
-//   createdAt: string;
-//   updatedAt: string;
-//   __v: number;
-// }
 
 export const MeasurementDataState = atom<MeasurementData[]>({
   key: 'MeasurementDataState',
   default: [],
 });
 
-// interface NetworkIndex {
-//   avgPing: number;
-//   jitter: number;
-//   downstreamSpeed: number;
-//   upstreamSpeed: number;
-// }
-
+// 서버에 보낼 속도 데이터
 export const speedTestDataState = atom<SpeedTestData>({
   key: 'speedTestDataState',
   default: {
@@ -84,10 +87,15 @@ export const speedTestDataState = atom<SpeedTestData>({
   },
 });
 
-// 시각화 관련
 export const PositionSpeedMapState = atom<
   Map<string, SpeedTestDataFromServer[]>
 >({
   key: 'PositionSpeedMapState',
   default: new Map<string, SpeedTestData[]>(),
+});
+
+// 요일을 설정하는 상태, default = 0, 일요일 = 1, 월요일 = 2, ..., 토요일 = 7
+export const dayOfWeekState = atom<number>({
+  key: 'dayOfWeekState',
+  default: 0,
 });

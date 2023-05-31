@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { PositionSpeedMapState } from '../../../module/Atom';
 import DetermineColorLabel from './DetermineColorLabel';
 
-// floor, room을 Input으로 사용하여 평균속도를 계산하고 Color label을 반환한다.
+// floor, room을 Input으로 사용하여 평균속도를 계산하고 Class에 대한 Color label을 반환한다.
 export const DetermineClassColor = (
   floor: string,
   room: string,
@@ -15,17 +15,13 @@ export const DetermineClassColor = (
 
   const key = `floorNumber:${floor},roomNumber:${room},locationClass:${curClass}`;
 
-  const NetworkIndexArray = filteredData.get(key);
+  const EachDataUsingKey = filteredData.get(key);
 
-  console.log('=========================');
-  console.log('Floor: ', floor, ' Room: ', room, ' CurClass: ', curClass);
-  console.log(NetworkIndexArray);
-
-  if (typeof NetworkIndexArray !== 'undefined') {
-    const numberOfData = NetworkIndexArray.length;
+  if (typeof EachDataUsingKey !== 'undefined') {
+    const numberOfData = EachDataUsingKey.length;
     totalNumberOfData += numberOfData;
 
-    NetworkIndexArray.forEach(classItem => {
+    EachDataUsingKey.forEach(classItem => {
       totalDownstreamSpeed += classItem.dlStatus;
     });
   }

@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { PositionSpeedMapState } from '../../../module/Atom';
 import DetermineColorLabel from './DetermineColorLabel';
 
-// floor, room을 Input으로 사용하여 평균속도를 계산하고 Color label을 반환한다.
+// floor, room을 Input으로 사용하여 평균속도를 계산하고 Room에 대한 Color label을 반환한다.
 export const DetermineRoomColor = (floor: number, room: number): string => {
   const filteredData = useRecoilValue(PositionSpeedMapState);
   // console.log(filteredData);
