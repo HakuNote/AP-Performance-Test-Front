@@ -1,16 +1,33 @@
-import React from 'react';
-// 이하 코드에서 React를 사용할 수 있습니다.
-import { RecoilRoot } from 'recoil';
+import { useSetRecoilState } from 'recoil';
+import { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
+import { v4 as uuid4 } from 'uuid';
+
 import AppRouter from './router/AppRouter';
-import HandleCookie from './pages/Shared/HandleCookie';
+import { cookieState } from './recoil/Atom';
+
+const HandleCookie = () => {
+  const [cookies, setCookie] = useCookies(['userIdentify']);
+  const setRecoilCookie = useSetRecoilState(cookieState);
+
+  useEffect(() => {
+    const setCookieFunc = async () => {
+      const random = uuid4();
+      setCookie('userIdentify', random);
+      setRecoilCookie(random);
+    };
+
+    if (!cookies.userIdentify) {
+      setCookieFunc();
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+};
 
 function App() {
+  HandleCookie();
   return (
     <div>
-      <RecoilRoot>
-        <HandleCookie />
-        <AppRouter />
-      </RecoilRoot>
+      <AppRouter />
     </div>
   );
 }

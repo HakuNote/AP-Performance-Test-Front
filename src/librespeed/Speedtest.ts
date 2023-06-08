@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
-// import { io, Socket } from 'socket.io-client';
-import { SpeedTestData } from './SpeedtestManager';
+
+import { SpeedTestDataFromServer } from '../recoil/Atom';
 
 type Latency = number;
 export interface MeasurementResult {
@@ -30,20 +30,22 @@ class Speedtest {
 
   private state: number;
 
-  private updater: NodeJS.Timeout | null;
+  // 오류발생이 이곳
+  private updater: number | null;
+  // private updater: NodeJS.Timeout | null;
 
   private worker: Worker;
 
-  private onupdate: (arg: SpeedTestData) => void;
+  private onupdate: (arg: SpeedTestDataFromServer) => void;
 
   private onend: (arg: boolean) => void;
 
   // 아직 데이터 타입을 잘 모르므로 임시로 any라고 함.
   // 추후 수정 필요
-  prevData: SpeedTestData | null;
+  prevData: SpeedTestDataFromServer | null;
 
   constructor(
-    onupdate: (arg: SpeedTestData) => void,
+    onupdate: (arg: SpeedTestDataFromServer) => void,
     onend: (arg: boolean) => void
   ) {
     this.serverList = []; // when using multiple points of test, this is a list of test points
@@ -169,9 +171,6 @@ class Speedtest {
 
     this.updater = setInterval(() => {
       this.worker.postMessage('status');
-
-      // 서버 선택이 안되는중
-      // console.log(this.getSelectedServer());
     }, 200);
 
     if (this.state === 1)
@@ -187,10 +186,7 @@ class Speedtest {
         this.selectedServer.server + this.selectedServer.getIpURL;
     }
     this.state = 3;
-    console.log('before worker');
-    // this.worker.postMessage(`start`);
     this.worker.postMessage(`start ${JSON.stringify(this.settings)}`);
-    console.log('after worker');
   }
 
   abort() {

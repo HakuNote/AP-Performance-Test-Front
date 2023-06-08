@@ -1,21 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import Speedtest from './Speedtest';
-import { speedTestDataState } from '../module/Atom';
-// import eventManager from './Speedtest_worker';
-
-export interface SpeedTestData {
-  testState: number;
-  dlStatus: number;
-  ulStatus: number;
-  pingStatus: number;
-  clientIp: string;
-  jitterStatus: number;
-  dlProgress: number;
-  ulProgress: number;
-  pingProgress: number;
-  testId: string;
-}
+import {
+  SpeedTestDataFromServer,
+  speedTestDataFromServerState,
+} from '../recoil/Atom';
 
 const host = `//${(import.meta as any).env.VITE_SERVER}/`;
 // const host =
@@ -40,14 +29,10 @@ const SpeedtestManager = (
     onEnd: paramOnend,
   };
   const [speedtest, setSpeedtest] = useState<Speedtest | null>(null);
-  const [speedTestData, setSpeedtestData] = useRecoilState(speedTestDataState);
-  // const [dlStatus, setDlStatus] = useState<number>(0);
-  // const [ulStatus, setUlStatus] = useState<number>(0);
-  // const [pingStatus, setPingStatus] = useState<number>(0);
-  // const [jitterStatus, setJitterStatus] = useState<number>(0);
+  const setSpeedtestData = useSetRecoilState(speedTestDataFromServerState);
 
   useEffect(() => {
-    const onupdate = (data: SpeedTestData) => {
+    const onupdate = (data: SpeedTestDataFromServer) => {
       setSpeedtestData(data);
     };
 
